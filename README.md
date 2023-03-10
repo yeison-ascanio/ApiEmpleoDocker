@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # README #
 
 This README would normally document whatever steps are necessary to get your application up and running.
@@ -27,3 +28,14 @@ This README would normally document whatever steps are necessary to get your app
 
 * Repo owner or admin
 * Other community or team contact
+=======
+# BaseLaravel
+Laravel v10.3.3 (PHP v8.1.16)
+
+NGINX - PHP-FPM
+
+### docker compose up --build -d --remove-orphans
+
+http://localhost/ 
+
+>>>>>>> Stashed changes
