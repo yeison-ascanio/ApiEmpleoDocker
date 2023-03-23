@@ -2,48 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\Login;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * The function takes a LoginRequest object as a parameter, which is a form request object that
+     * validates the request data. If the request data is valid, the function attempts to authenticate
+     * the user using the email and password fields. If the authentication is successful, the function
+     * creates a token for the user and returns the token and a status of true. If the authentication
+     * is unsuccessful, the function returns a status of false and a null data field
+     * 
+     * @param LoginRequest request The request object.
+     * @return A JSON response with a token and a status.
      */
-    public function store(Request $request)
+    public function login(LoginRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Login $login)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Login $login)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Login $login)
-    {
-        //
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('token')->plainTextToken;
+            $cookie = cookie('cookie_token', $token, 60 * 24);
+            return response()->json([
+                "token" => $token,
+                "status" => true
+            ])->withOutCookie($cookie);
+        } else {
+            return response()->json([
+                "status" => false,
+                "data" => null,
+                "message" => "Invalid credentials."
+            ], 401);
+        }
     }
 }

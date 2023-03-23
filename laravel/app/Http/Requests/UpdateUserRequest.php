@@ -30,7 +30,6 @@ class UpdateUserRequest extends FormRequest
             'last_login' => 'nullable | date',
             'image'      => 'string | required',
             'address'    => 'string | required',
-            'id'         => 'int | required'
         ];
     }
     public function messages()
@@ -51,8 +50,6 @@ class UpdateUserRequest extends FormRequest
             'image.string'       => 'This parameter must be valid type.',
             'address.required'   => 'This parameter is required.',
             'address.string'     => 'This parameter must be of type date.',
-            'id.required'        => 'This parameter is required.',
-            'id.int'             => 'This parameter must be of type int.'
         ];
     }
 }

@@ -9,12 +9,12 @@ class UserFile extends Model
 {
     use HasFactory;
     protected $connection = 'mysql';
-    protected $table = 'login';
+    protected $table = 'user_files';
 
     protected $fillable = [
         'id',
-        'token',
-        'attempt',
+        'id_user',
+        'id_file',
     ];
 
 }

@@ -18,13 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UsersController::class)->group(function () {
     Route::post('/get_user', 'getUser');
+    Route::post('/get_all_user', 'index');
     Route::post('/save_user', 'saveUser');
     Route::post('/update_user', 'updateUser');
     Route::post('/delete_user', 'deleteUser');
 });
 
 Route::controller(LoginController::class)->group(function () {
-    Route::post('/login', 'index');
+    Route::post('/login', 'login');
 });
 
 
