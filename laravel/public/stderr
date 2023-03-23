@@ -1,0 +1,5 @@
+[23-Mar-2023 19:54:18 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
+[23-Mar-2023 19:55:14 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
+[23-Mar-2023 19:57:58 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
+[23-Mar-2023 19:59:10 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
+[23-Mar-2023 19:59:24 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12

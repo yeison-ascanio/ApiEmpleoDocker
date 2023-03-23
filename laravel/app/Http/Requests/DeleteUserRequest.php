@@ -11,7 +11,7 @@ class DeleteUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class DeleteUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => 'email | required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.email' => 'This field must be a type email',
+            'email.required' => 'This parameter is required.'
         ];
     }
 }

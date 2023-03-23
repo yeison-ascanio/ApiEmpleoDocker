@@ -23,7 +23,7 @@ class SaveUserRequest extends FormRequest
     {
         return [
             'name'       => 'string | required',
-            'email'      => 'email | required',
+            'email'      => 'email | required | unique:users',
             'password'   => 'string | required',
             'last_name'  => 'string | required',
             'type'       => 'string | required',
