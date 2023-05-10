@@ -2,29 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\GetUserRequest;
-use App\Http\Requests\SaveUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Helper\Helper;
+use App\Http\Requests\Users\DeleteUserRequest;
+use App\Http\Requests\Users\GetUserRequest;
+use App\Http\Requests\Users\SaveUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
 
 class UsersController extends Controller
 {
     private $user;
+    private $helper;
+    private $error;
+    private $sucess;
 
     public function __construct()
     {
-        $this->user = new User();
+        $this->user   = new User();
+        $this->helper = new Helper;
+        $this->error  = 400;
+        $this->sucess = 200;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getAllUsers()
     {
-        return $this->user::all();
+        try {
+            return $this->user::all();
+        } catch (\Exception $e) {
+            return $this->helper->response(false, $this->error);
+        }
     }
 
     /**
@@ -32,12 +44,11 @@ class UsersController extends Controller
      */
     public function saveUser(SaveUserRequest $request)
     {
-        return response()->json(
-            [
-                "status" => (bool)$this->user->saveUser($request->toArray())
-            ],
-            200
-        );
+        $state_save = (bool)$this->user->saveUser($request->toArray());
+
+        if ($state_save) return $this->helper->response($state_save, $this->sucess);
+
+        return $this->helper->response((bool)$state_save, $this->error);
     }
 
     /**
@@ -45,7 +56,11 @@ class UsersController extends Controller
      */
     public function getUser(GetUserRequest $request)
     {
-        return response()->json($this->user->getUserById($request->id));
+        $state = $this->user->getUserById($request->id);
+
+        if ($state) return $this->helper->response((bool)$state, $this->sucess, $state);
+
+        return $this->helper->response((bool)$state, $this->error);
     }
 
     /**
@@ -53,23 +68,15 @@ class UsersController extends Controller
      */
     public function updateUser(UpdateUserRequest $request)
     {
-        $exists_user = $this->user->getUserByEmail($request->email);
+        $exist_user = $this->user->getUserByEmail($request->data['email']);
 
-        if (!isset($exists_user)) return response()->json([
-            "Status"  => false,
-            "Message" => throw new \Exception('This user does not exist.')
-        ], 400);
+        if (!isset($exist_user)) return $this->helper->response(!(bool)$exist_user, $this->error, null, "This user doesn't exist.");
 
-        $update = $this->user->updateUser($request->toArray(), $exists_user['id']);
+        $update = $this->user->updateUser($request->toArray(), $exist_user['id']);
 
-        if ($update) return response()->json([
-            "Status" => (bool)$update
-        ], 200);
+        if ($update) return $this->helper->response((bool)$update, $this->sucess, null, "User updated successfully.");
 
-        return response()->json([
-            "Status" => (bool)$update,
-            "Message" => "Nothing for update."
-        ], 400);
+        return $this->helper->response((bool)$update, $this->error, null, "Nothing for update");
     }
 
     /**
@@ -77,22 +84,14 @@ class UsersController extends Controller
      */
     public function deleteUser(DeleteUserRequest $request)
     {
-        $exists_user = $this->user->getUserByEmail($request->email);
+        $exist_user = $this->user->getUserByEmail($request->email);
 
-        if (!isset($exists_user)) return response()->json([
-            "Status"  => false,
-            "Message" => throw new \Exception('This user does not exist.')
-        ], 400);
+        if (!isset($exist_user)) return $this->helper->response((bool)$exist_user, $this->error, null, "This user doesn't exist.");
 
-        $delete = $this->user->deleteUser($exists_user['email']);
+        $delete = $this->user->deleteUser($exist_user['email']);
 
-        if ($delete) return response()->json([
-            "Status" => (bool)$delete
-        ], 200);
+        if ($delete) return $this->helper->response((bool)$delete, $this->sucess, null, "User deleted successfully");
 
-        return response()->json([
-            "Status" => (bool)$delete,
-            "Message" => "An error occurred while deleting, please try again later."
-        ], 400);
+        return $this->helper->response((bool)$delete, $this->error, null, "An error occurred while deleting, please try again later.");
     }
 }

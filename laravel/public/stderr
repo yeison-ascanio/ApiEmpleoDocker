@@ -3,3 +3,4 @@
 [23-Mar-2023 19:57:58 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
 [23-Mar-2023 19:59:10 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
 [23-Mar-2023 19:59:24 UTC] PHP Fatal error:  Class App\Models\User cannot extend interface Illuminate\Contracts\Auth\Authenticatable in /var/www/html/app/Models/User.php on line 12
+[01-Apr-2023 15:20:28 UTC] PHP Fatal error:  Cannot declare class App\Http\Requests\Users\LoginRequest, because the name is already in use in /var/www/html/app/Http/Requests/LoginRequest.php on line 7

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,7 +29,7 @@ class DeleteUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.email' => 'This field must be a type email',
+            'email.email'    => 'This field must be a type email',
             'email.required' => 'This parameter is required.'
         ];
     }

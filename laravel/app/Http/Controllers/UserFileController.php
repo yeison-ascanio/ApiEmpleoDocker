@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserFile;
 use App\Http\Requests\LoginRequest;
 use App\Models\Login;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserFileController extends Controller
@@ -15,7 +15,7 @@ class UserFileController extends Controller
     public function __construct()
     {
         $this->login = new Login();
-        $this->user = new Users();
+        $this->user = new User();
     }
 
     /**

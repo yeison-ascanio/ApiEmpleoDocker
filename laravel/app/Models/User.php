@@ -18,7 +18,6 @@ class User extends Model implements Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password',
@@ -42,7 +41,11 @@ class User extends Model implements Authenticatable
      */
     public function getUserById($id)
     {
-        return $this->where('id', $id)->get();
+        try {
+            return $this->where('id', $id)->first();
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -54,7 +57,11 @@ class User extends Model implements Authenticatable
      */
     public function getUserByEmail($email)
     {
-        return $this->where('email', $email)->first();
+        try {
+            return $this->where('email', $email)->first();
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -66,16 +73,20 @@ class User extends Model implements Authenticatable
      */
     public function saveUser($user)
     {
-        return $this->insert([
-            'name'       => $user['name'],
-            'email'      => $user['email'],
-            'password'   => Hash::make($user['password']),
-            'last_name'  => $user['last_name'],
-            'type'       => $user['type'],
-            'last_login' => $user['last_login'],
-            'image'      => $user['image'],
-            'address'    => $user['address']
-        ]);
+        try {
+            return $this->insert([
+                'name'       => $user['data']['name'],
+                'email'      => $user['data']['email'],
+                'password'   => Hash::make($user['data']['password']),
+                'last_name'  => $user['data']['last_name'],
+                'type'       => $user['data']['type'],
+                'last_login' => $user['data']['last_login'],
+                'image'      => $user['data']['image'],
+                'address'    => $user['data']['address']
+            ]);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -88,17 +99,21 @@ class User extends Model implements Authenticatable
      */
     public function updateUser($user, $id)
     {
-        return $this->where('id', $id)
-            ->update([
-                'name'       => $user['name'],
-                'email'      => $user['email'],
-                'password'   => $user['password'],
-                'last_name'  => $user['last_name'],
-                'type'       => $user['type'],
-                'last_login' => $user['last_login'],
-                'image'      => $user['image'],
-                'address'    => $user['address']
-            ]);
+        try {
+            return $this->where('id', $id)
+                ->update([
+                    'name'       => $user['data']['name'],
+                    'email'      => $user['data']['email'],
+                    'password'   => $user['data']['password'],
+                    'last_name'  => $user['data']['last_name'],
+                    'type'       => $user['data']['type'],
+                    'last_login' => $user['data']['last_login'],
+                    'image'      => $user['data']['image'],
+                    'address'    => $user['data']['address']
+                ]);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -110,7 +125,11 @@ class User extends Model implements Authenticatable
      */
     public function deleteUser($email)
     {
-        return $this->where('email', $email)->delete();
+        try {
+            return $this->where('email', $email)->delete();
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     //interface methods to use auth

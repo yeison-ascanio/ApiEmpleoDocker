@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
-            $table->date('delete_date');
+            $table->string('location');
+            $table->string('job_mission');
+            $table->string('functions_position');
+            $table->string('state');
             $table->timestamps();
         });
     }

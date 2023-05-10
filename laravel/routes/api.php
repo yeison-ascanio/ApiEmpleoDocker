@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UsersController::class)->group(function () {
     Route::post('/get_user', 'getUser');
-    Route::post('/get_all_user', 'index');
+    Route::post('/get_all_user', 'getAllUsers');
     Route::post('/save_user', 'saveUser');
     Route::post('/update_user', 'updateUser');
     Route::post('/delete_user', 'deleteUser');
@@ -28,4 +29,10 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'login');
 });
 
-
+Route::controller(PostController::class)->group(function () {
+    Route::post('/get_all_post', 'getAllPosts');
+    Route::post('/get_post', 'getPost');
+    Route::post('/update_post', 'updatePost');
+    Route::post('/delete_post', 'deletePost');
+    Route::post('/save_post', 'savePost');
+});
