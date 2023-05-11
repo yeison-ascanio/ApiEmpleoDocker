@@ -23,7 +23,6 @@ class User extends Model implements Authenticatable
         'password',
         'last_name',
         'type',
-        'last_login',
         'image',
         'address'
     ];
@@ -80,7 +79,6 @@ class User extends Model implements Authenticatable
                 'password'   => Hash::make($user['data']['password']),
                 'last_name'  => $user['data']['last_name'],
                 'type'       => $user['data']['type'],
-                'last_login' => $user['data']['last_login'],
                 'image'      => $user['data']['image'],
                 'address'    => $user['data']['address']
             ]);
@@ -107,7 +105,6 @@ class User extends Model implements Authenticatable
                     'password'   => $user['data']['password'],
                     'last_name'  => $user['data']['last_name'],
                     'type'       => $user['data']['type'],
-                    'last_login' => $user['data']['last_login'],
                     'image'      => $user['data']['image'],
                     'address'    => $user['data']['address']
                 ]);

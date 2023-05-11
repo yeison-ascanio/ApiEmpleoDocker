@@ -28,6 +28,7 @@ class SavePostRequest extends FormRequest
             'data.job_mission'        => 'required | string',
             'data.functions_position' => 'required | string',
             'data.content'            => 'required | string',
+            'data.id_user'            => 'required | int'
         ];
     }
     public function messages()
@@ -42,7 +43,9 @@ class SavePostRequest extends FormRequest
             'data.job_mission.required'        => 'This parameter is required.',
             'data.job_mission.string'          => 'This parameter must be of type string.',
             'data.functions_position.required' => 'This parameter is required.',
-            'data.functions_position.string'   => 'This parameter must be of type string.'
+            'data.functions_position.string'   => 'This parameter must be of type string.',
+            'data.id_user.required'            => 'This parameter is required.',
+            'data.id_user.int'                 => 'This paramter must be of type int.'
         ];
     }
 }

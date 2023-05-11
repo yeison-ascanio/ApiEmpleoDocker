@@ -28,7 +28,6 @@ class SaveUserRequest extends FormRequest
             'data.password'   => 'string | required',
             'data.last_name'  => 'string | required',
             'data.type'       => 'string | required',
-            'data.last_login' => 'nullable | date',
             'data.image'      => 'string | required',
             'data.address'    => 'string | required',
         ];
@@ -46,7 +45,6 @@ class SaveUserRequest extends FormRequest
             'data.last_name.string'   => 'This parameter must be of type string.',
             'data.type.required'      => 'This parameter is required.',
             'data.type.string'        => 'This parameter must be of type string.',
-            'data.last_login.date'    => 'This parameter must be of type date.',
             'data.image.required'     => 'This parameter is required.',
             'data.image.string'       => 'This parameter must be valid type.',
             'data.address.required'   => 'This parameter is required.',

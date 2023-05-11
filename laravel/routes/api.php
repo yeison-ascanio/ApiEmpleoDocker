@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UsersController;
@@ -35,4 +36,9 @@ Route::controller(PostController::class)->group(function () {
     Route::post('/update_post', 'updatePost');
     Route::post('/delete_post', 'deletePost');
     Route::post('/save_post', 'savePost');
+});
+
+Route::controller(FileController::class)->group( function(){
+    Route::post('/save_file', 'saveFile');
+    Route::post('/update_file', 'updateFile');
 });

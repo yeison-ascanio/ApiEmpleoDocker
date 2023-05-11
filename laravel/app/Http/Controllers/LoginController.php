@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Helper\Helper;
+use App\Http\Requests\Login\LoginRequest;
 use App\Models\Login;
-use Illuminate\Http\Request;
+use App\Models\UserLogin;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    private $helper;
+    private $login;
+    private $user_login;
+    private $error;
+    private $sucess;
+    private $unauthorized;
+
+    public function __construct()
+    {
+        $this->helper       = new Helper();
+        $this->login        = new Login();
+        $this->user_login   = new UserLogin();
+        $this->unauthorized = 401;
+        $this->error        = 400;
+        $this->sucess       = 200;
+    }
 
     /**
      * The function takes a LoginRequest object as a parameter, which is a form request object that
@@ -24,19 +41,18 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('token')->plainTextToken;
-            $cookie = cookie('cookie_token', $token, 60 * 24);
-            return response()->json([
-                "token" => $token,
-                "status" => true
-            ])->withOutCookie($cookie);
+
+            $user     = Auth::user();
+            $token    = $user->createToken('token')->plainTextToken;
+            $cookie   = cookie('cookie_token', $token, 60 * 24);
+            $id_login = $this->login->saveLogin($token);
+
+            $this->user_login->saveLoginUser($user->id, $id_login);
+
+            return $this->helper->response(true, $this->sucess, $token)->withOutCookie($cookie);
+            
         } else {
-            return response()->json([
-                "status" => false,
-                "data" => null,
-                "message" => "Invalid credentials."
-            ], 401);
+            return $this->helper->response(false, $this->unauthorized, null, "Invalid credentials.");
         }
     }
 }

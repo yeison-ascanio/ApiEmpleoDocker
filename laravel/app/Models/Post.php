@@ -42,20 +42,23 @@ class Post extends Model
         }
     }
 
+
     /**
-     * The function saves a post by inserting its title, content, and creation date into a database
-     * table.
+     * The function saves a post by inserting its data into a database table and returns true if
+     * successful, false otherwise.
      * 
-     * @param post The parameter `` is an array that contains the data of a post to be saved. It
-     * should have a key named `data` which is also an array containing the `title`, `content`, and
-     * `created_at` values of the post.
+     * @param post The parameter `` is an array that contains data related to a post. It is
+     * assumed that this function is part of a class that extends a database model, and the `insert`
+     * method is used to save the post data to the database. The data contained in the `` array
+     * includes
      * 
-     * @return If an exception is caught, the function will return `false`. If the insertion is
-     * successful, the function will not return anything.
+     * @return the result of the insert operation, which could be a boolean value indicating success or
+     * failure, or a more detailed result depending on the implementation of the insert method. If an
+     * exception is caught, the function returns false.
      */
     public function savePost($post){
         try {
-            return $this->insert([
+            return $this->insertGetId([
                 'title'              => $post['data']['title'],
                 'content'            => $post['data']['content'],
                 'location'           => $post['data']['location'],
@@ -88,7 +91,7 @@ class Post extends Model
     }
 
     /**
-     * This PHP function updates a post in a database with new title, content, and updated_at values.
+     * This function updates a post in a database with new title, content, and updated_at values.
      * 
      * @param post The  parameter is an array that contains the updated data for a post. It has a
      * 'data' key that holds another array with the 'title' and 'content' keys, which respectively hold

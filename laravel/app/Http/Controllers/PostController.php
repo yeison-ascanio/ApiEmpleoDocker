@@ -9,21 +9,24 @@ use App\Http\Requests\Post\SavePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 
 use App\Models\Post;
+use App\Models\UserPost;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     private $post;
+    private $user_post;
     private $helper; 
     private $error;
     private $sucess;
 
     public function __construct()
     {
-        $this->post   = new Post();
-        $this->helper = new Helper();
-        $this->error  = 400;
-        $this->sucess = 200;
+        $this->post      = new Post();
+        $this->helper    = new Helper();
+        $this->user_post = new UserPost();
+        $this->error     = 400;
+        $this->sucess    = 200;
     }
 
     /**
@@ -43,11 +46,14 @@ class PostController extends Controller
      */
     public function savePost(SavePostRequest $request)
     {
-        $state_save = (bool)$this->post->savePost($request->toArray());
+        $state_save = $this->post->savePost($request->toArray());
 
-        if ($state_save) return $this->helper->response($state_save, $this->sucess);
+        if ($state_save) {
+            return $this->helper->response((bool)$state_save, $this->sucess);
+            $this->user_post->savePostUser($request->toArray(), $state_save);
+        }
 
-        return $this->helper->response($state_save, $this->error);
+        return $this->helper->response((bool)$state_save, $this->error);
     }
 
     /**

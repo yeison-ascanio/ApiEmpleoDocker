@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('token');
             $table->integer('attempt');
+            $table->date('last_login')->nullable();
         });
     }
 
