@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserFile;
-use App\Http\Requests\LoginRequest;
 use App\Models\Login;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +20,7 @@ class UserFileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(LoginRequest $request)
+    public function index(Request $request)
     {
         
     }

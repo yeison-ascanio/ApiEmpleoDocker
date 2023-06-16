@@ -41,4 +41,5 @@ Route::controller(PostController::class)->group(function () {
 Route::controller(FileController::class)->group( function(){
     Route::post('/save_file', 'saveFile');
     Route::post('/update_file', 'updateFile');
+    Route::post('/get_file', 'getFile');
 });

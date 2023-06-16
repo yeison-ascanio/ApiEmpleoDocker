@@ -22,21 +22,17 @@ class SaveFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data'         => 'required | array',
-            'data.name'    => 'required | string',
-            'data.route'   => 'required | string',
-            'data.id_user' => 'required | int'
+            'id_user' => 'required | int',
+            'file'    => 'required | file'
         ];
     }
     public function messages()
     {
         return [
-            'data.name.required'    => 'This parameter is required.',
-            'data.name.string'      => 'This parameter must be of type string.',
-            'data.route.string'     => 'This parameter must be of type string.',
-            'data.route.required'   => 'This parameter is required.',
-            'data.id_user.required' => 'This parameter is required.',
-            'data.id_user.int'      => 'This parameter must be of type int'
+            'id_user.required' => 'This parameter is required.',
+            'id_user.int'      => 'This parameter must be of type int',
+            'file.required'    => 'This parameter is required.',
+            'file.file'        => 'This parameter must be of type pdf'
         ];
     }
 }

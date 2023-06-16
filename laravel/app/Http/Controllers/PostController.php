@@ -49,8 +49,8 @@ class PostController extends Controller
         $state_save = $this->post->savePost($request->toArray());
 
         if ($state_save) {
-            return $this->helper->response((bool)$state_save, $this->sucess);
             $this->user_post->savePostUser($request->toArray(), $state_save);
+            return $this->helper->response((bool)$state_save, $this->sucess);
         }
 
         return $this->helper->response((bool)$state_save, $this->error);
@@ -63,7 +63,7 @@ class PostController extends Controller
     {
         $state = $this->post->getPost($request->id);
 
-        if(!isset($state)) return $this->helper->response((bool)$state, $this->sucess, $state);
+        if(isset($state)) return $this->helper->response((bool)$state, $this->sucess, $state);
 
         return $this->helper->response((bool)$state, $this->error);
     }

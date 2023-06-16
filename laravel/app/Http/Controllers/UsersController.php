@@ -10,8 +10,6 @@ use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isEmpty;
-
 class UsersController extends Controller
 {
     private $user;

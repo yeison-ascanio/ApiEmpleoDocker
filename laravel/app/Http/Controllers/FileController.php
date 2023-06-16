@@ -38,11 +38,17 @@ class FileController extends Controller
      */
     public function saveFile(SaveFileRequest $request)
     {
+        if ($request->hasFile('file')) {
+            $archivo = $request->file('file');
+            $rutaArchivo = $archivo->store('Files');
+        }
+        $request['route'] = $rutaArchivo;
+        $request['name']  = $archivo->getClientOriginalName();
         $state_save = $this->file->saveFile($request->toArray());
 
         if ($state_save) {
-            return $this->helper->response((bool)$state_save, $this->sucess);
             $this->user_file->saveUserFile($request->toArray(), $state_save);
+            return $this->helper->response((bool)$state_save, $this->sucess);
         }
 
         return $this->helper->response((bool)$state_save, $this->error);
